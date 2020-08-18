@@ -59,13 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-
                 try {
                     adapterSourcelist.getFilter().filter(charSequence);
                 } catch (Exception e) {
-
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -73,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
     }
 
@@ -95,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("sources");
 
                     //Get All data from that Array using loop
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
                         String id = jsonObject1.getString("id");
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         String language = jsonObject1.getString("language");
                         String country = jsonObject1.getString("country");
 
-                        ModelSourceList modelSourceList = new ModelSourceList("" + id,
+                        ModelSourceList modelSourceList = new ModelSourceList(
+                                "" + id,
                                 "" + name,
                                 "" + description,
                                 "" + url,
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                         sourceLists.add(modelSourceList);
                     }
+
                     progressBar.setVisibility(View.GONE);
                     adapterSourcelist = new AdapterSourcelist(MainActivity.this, sourceLists);
                     sourceRV.setAdapter(adapterSourcelist);

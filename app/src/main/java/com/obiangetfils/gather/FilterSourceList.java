@@ -11,7 +11,6 @@ public class FilterSourceList extends Filter {
     private ArrayList<ModelSourceList> filterList;
 
     // Constructor
-
     public FilterSourceList(AdapterSourcelist adapter, ArrayList<ModelSourceList> filterList) {
         this.adapter = adapter;
         this.filterList = filterList;
@@ -24,9 +23,10 @@ public class FilterSourceList extends Filter {
 
         //Check Constant Validity
         if (constraint != null && constraint.length() > 0) {
-            // change to upper case
+            // Change to upper case
             constraint = constraint.toString().toUpperCase();
             ArrayList<ModelSourceList> filteredModel = new ArrayList<>();
+
             for (int i = 0; i < filterList.size(); i++) {
                 if (filterList.get(i).getName().toUpperCase().contains(constraint)) {
                     filteredModel.add(filterList.get(i));
@@ -34,11 +34,11 @@ public class FilterSourceList extends Filter {
             }
             results.count = filteredModel.size();
             results.values = filteredModel;
+
         } else {
             results.count = filterList.size();
             results.values = filterList;
         }
-
         return results;
     }
 
@@ -46,9 +46,8 @@ public class FilterSourceList extends Filter {
     protected void publishResults(CharSequence constraint, FilterResults results) {
 
         adapter.modelSourceLists = (ArrayList<ModelSourceList>) results.values;
+
         //refresh list
-
         adapter.notifyDataSetChanged();
-
     }
 }
