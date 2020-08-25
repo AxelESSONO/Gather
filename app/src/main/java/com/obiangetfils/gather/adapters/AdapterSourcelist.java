@@ -1,6 +1,7 @@
 package com.obiangetfils.gather.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.obiangetfils.gather.FilterSourceList;
 import com.obiangetfils.gather.R;
+import com.obiangetfils.gather.controllers.NewsSourceDetailActivity;
 import com.obiangetfils.gather.models.ModelSourceList;
 
 import java.util.ArrayList;
@@ -41,12 +43,12 @@ public class AdapterSourcelist extends RecyclerView.Adapter<AdapterSourcelist.Ho
 
         // get Data
         ModelSourceList model = modelSourceLists.get(position);
-        String id = model.getId();
-        String name = model.getName();
-        String description = model.getDescription();
-        String category = model.getCategory();
-        String language = model.getLanguage();
-        String country = model.getCountry();
+        final String id = model.getId();
+        final String name = model.getName();
+        final String description = model.getDescription();
+        final String category = model.getCategory();
+        final String language = model.getLanguage();
+        final String country = model.getCountry();
 
         // Set Data to Ui view
         holder.nameTv.setText(name);
@@ -58,6 +60,16 @@ public class AdapterSourcelist extends RecyclerView.Adapter<AdapterSourcelist.Ho
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(context, NewsSourceDetailActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("name", name);
+                intent.putExtra("description", description);
+                intent.putExtra("category", category);
+                intent.putExtra("country", country);
+                intent.putExtra("language", language);
+                context.startActivity(intent);
+
 
             }
         });
