@@ -1,6 +1,7 @@
 package com.obiangetfils.gather.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.obiangetfils.gather.R;
+import com.obiangetfils.gather.controllers.NewsDetailActivity;
 import com.obiangetfils.gather.models.ModelNewsSourceDetail;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +39,7 @@ public class AdapterNewsSourceDetail extends RecyclerView.Adapter<AdapterNewsSou
     public void onBindViewHolder(@NonNull NewsSourceDetailViewHolder holder, int position) {
 
         ModelNewsSourceDetail modelNewsSourceDetail = newsSourceDetailArrayList.get(position);
-        String title, description, url, urlToImage, publishedAt, content;
+        final String title, description, url, urlToImage, publishedAt, content;
 
         title = modelNewsSourceDetail.getTitle();
         description = modelNewsSourceDetail.getDescription();
@@ -54,7 +57,9 @@ public class AdapterNewsSourceDetail extends RecyclerView.Adapter<AdapterNewsSou
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent newsDetailIntent = new Intent(mContext, NewsDetailActivity.class);
+                newsDetailIntent.putExtra("url", url);
+                mContext.startActivity(newsDetailIntent);
             }
         });
 
